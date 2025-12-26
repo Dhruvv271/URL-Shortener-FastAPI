@@ -44,7 +44,8 @@ It allows users to:
 ## Installation(For your local system):
 - After cloning the repository, create a venv environment in the directory of your folder.
 
-```python -m venv venv
+```
+python -m venv venv
 source venv/bin/activate   # Windows: venv\Scripts\activate 
 ```
 
