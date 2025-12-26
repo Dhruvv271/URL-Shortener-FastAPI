@@ -1,48 +1,126 @@
-# URL Shortener - (FastAPI + SQLite + Docker + Render)
-A simple URL Shortener built with:
-- FastAPI - Web framework for building HTTP based APIs in Python
-- SQLite - Simple Database
-- Click Analytics(counts)
-- Docker - Used to Containerize for deployment
-- Render - Web service used for cloud hosting and deployment
-It allows users to:
+# 🚀 URL Shortener (FastAPI + SQLite + Docker)
 
-1) create a short link  
-2) redirect automatically  
-3) track clicks + visit history  
-4) deploy easily anywhere 
+A high-performance URL shortener service built for speed and simplicity. This project demonstrates a production-ready API architecture using **FastAPI**, containerization with **Docker**, and automated deployment on **Render**.
 
-# How It Works:
-1) User enters a URL with json: 
+---
 
-for instance, { 
-    "url" : "https://example.com"
-}
-2) Server generates a random code (for example: abc123), stores it and returns:
+## 📌 Features
+
+* **⚡ Instant Shortening:** Converts long URLs into concise, shareable links.
+* **🔗 Smart Redirection:** Automatically redirects visitors to the original destination.
+* **📊 Live Analytics:** Tracks click counts and timestamps for every access event.
+* **🐳 Dockerized:** Fully containerized for consistent deployment across any environment.
+* **☁️ Cloud Ready:** Live deployment on Render web services.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Framework:** [FastAPI](https://fastapi.tiangolo.com/) (High-performance Python web framework)
+* **Database:** SQLite (Lightweight, serverless relational DB)
+* **Containerization:** Docker
+* **Deployment:** Render
+
+---
+
+## 📖 API Usage Guide
+
+### 1. Create a Short Link
+**Endpoint:** `POST /shorten`
+Input a JSON body with your target URL.
+
+**Request:**
+```json
 {
-    "short_url": "https://localhost:8000/abc123
+  "url": "[https://www.example.com](https://www.example.com)"
 }
-3) When the user pastes the short URL in the browser, it redirects to the original URL and it records a click.
-4) User can access analytics in the form of:
+Response:
+
+JSON
+
+{
+  "short_url": "[https://your-domain.com/abc123](https://your-domain.com/abc123)"
+}
+2. Redirect
+Endpoint: GET /{short_code}
+
+Accessing the shortened URL (e.g., /abc123) in a browser automatically redirects you to the original website.
+
+This action increments the click counter in the background.
+
+3. View Analytics
+Endpoint: GET /analytics/{short_code} Get detailed stats on link performance.
+
+Response:
+
+JSON
+
 {
   "short_code": "abc123",
-  "original_url": "https://example.com",
+  "original_url": "[https://www.example.com](https://www.example.com)",
   "clicks": 5,
   "history": [
     "2025-01-01T12:00:00",
-    "2025-01-01T12:03:02"
+    "2025-01-01T12:05:00"
   ]
 }
-# Installation(For local use):
-1) After cloning the repo in your local system, create a "venv" environment by using the following command in your project directory:
-`python -m venv venv`
-then, activate the environment: `venv\Scripts\activate` (For Windows)
-2) Install Dependencies:
-`pip install -r requirements.txt`
-3) Run the server:
-`uvicorn main:app --reload`
-4) Visit: http://localhost:8000/docs
-5) Test By posting a URL and get the shortened URL and analytics.
-# Deployed:
-The containerized image was deployed using render web service. A Working link is: https://url-shortener-cx2i.onrender.com/docs
-Note: The "/docs" extension is required for the link to work.
+⚙️ Local Installation & Setup
+Follow these steps to run the project on your local machine.
+
+Prerequisites
+Python 3.9+
+
+Git
+
+Steps
+Clone the Repository
+
+Bash
+
+git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+cd your-repo-name
+Create a Virtual Environment
+
+Bash
+
+# Create the environment
+python -m venv venv
+
+# Activate it (Windows)
+venv\Scripts\activate
+
+# Activate it (Mac/Linux)
+source venv/bin/activate
+Install Dependencies
+
+Bash
+
+pip install -r requirements.txt
+Run the Server
+
+Bash
+
+uvicorn main:app --reload
+Test the API Open your browser and navigate to the interactive documentation: 👉 http://localhost:8000/docs
+
+🐳 Docker Deployment
+To run this application as a container:
+
+Build the Image
+
+Bash
+
+docker build -t url-shortener .
+Run the Container
+
+Bash
+
+docker run -p 8000:8000 url-shortener
+🌐 Live Demo
+The project is deployed and live on Render. You can test the API endpoints directly via the Swagger UI.
+
+👉 Live Link: https://url-shortener-cx2i.onrender.com/docs
+
+Note: Ensure you append /docs to the URL to access the interactive API interface.
+
+Author: Dhruv Vijay
