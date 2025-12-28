@@ -21,7 +21,6 @@ app.add_middleware(
 )
 
 
-# ------------------ Models ------------------
 
 class URL(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -38,8 +37,6 @@ def create_db():
 
 create_db()
 
-# ------------------ Helpers ------------------
-
 def generate_code(length=6):
     chars = string.ascii_letters + string.digits
     return "".join(random.choice(chars) for _ in range(length))
@@ -47,7 +44,7 @@ def generate_code(length=6):
 class URLCreate(BaseModel):
     url: str
 
-# ------------------ Routes ------------------
+
 
 @app.post("/shorten")
 def shorten(data: URLCreate):
@@ -70,7 +67,7 @@ def redirect(code: str):
         if not record:
             raise HTTPException(status_code=404, detail="Link not found")
 
-        # Record analytics
+        
         record.clicks += 1
 
         history = json.loads(record.click_history)
@@ -101,7 +98,7 @@ def get_analytics(code: str):
 @app.get("/")
 def home():
     return {
-        "message": "URL Shortener is running 🚀",
+        "message": "URL Shortener is running",
         "docs": "/docs",
         "shorten_endpoint": "/shorten"
     }
